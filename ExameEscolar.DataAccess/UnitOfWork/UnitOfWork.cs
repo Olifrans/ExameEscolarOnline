@@ -6,7 +6,7 @@ using System.Text;
 
 namespace ExameEscolar.DataAccess.UnitOfWork
 {
-    class UnitOfWork : IUnitOfWork, IDisposable
+    public class UnitOfWork : IUnitOfWork, IDisposable
     {
         private readonly EscolarDbContext _context = null;
 

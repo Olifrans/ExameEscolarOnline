@@ -6,6 +6,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ExameEscolar.DataAccess;
+
+
 
 namespace ExameEscolar.BLL.Services
 {
@@ -21,24 +24,91 @@ namespace ExameEscolar.BLL.Services
             _ILogger = iLogger;
         }
 
-        public Task<GroupsViewModel> AddGroupsAsync(GroupsViewModel groupVM)
+        public async Task<GroupsViewModel> AddGroupsAsync(GroupsViewModel groupVM)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Groups objGroups = groupVM.ConvertGroupsViewModel(groupVM);
+                await _unitOfWork.GenericRepository<Groups>().AddAsync(objGroups);
+                _unitOfWork.Save();
+            }
+            catch (Exception ex)
+            {
+                return null;         
+            }
+            return groupVM;
         }
 
         public PaginaDeResultado<GroupsViewModel> GetAllGroups(int PaginaNumero, int PaginaTamanho)
         {
-            throw new NotImplementedException();
+            var model = new GroupsViewModel();
+            try
+            {
+
+                int ExcludeRecords = (PaginaTamanho * PaginaNumero) - PaginaNumero;
+                List<GroupsViewModel> detalheList = new List<GroupsViewModel>();
+                var modelList = _unitOfWork.GenericRepository<Groups>().GetAll().Skip(ExcludeRecords).Take(PaginaTamanho).ToList();
+                var contaTotal = _unitOfWork.GenericRepository<Groups>().GetAll().ToList();
+
+                detalheList = GroupListInfo(modelList);
+
+                if (detalheList != null)
+                {
+                    model.GroupList = detalheList;
+                    model.ContaTotal = contaTotal.Count();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                _ILogger.LogError(ex.Message);
+            }
+            var resultado = new PaginaDeResultado<GroupsViewModel>
+            {
+                Data = model.GroupList,
+                TotalItems = model.ContaTotal,
+                PaginaNumero = PaginaNumero,
+                PaginaTamanho = PaginaTamanho,
+            };
+            return resultado;
+
         }
 
-        public IEnumerable<GroupsViewModel> GetAllGroups()
+        private List<GroupsViewModel> GroupListInfo(List<Groups> modelList)
         {
-            throw new NotImplementedException();
+            return modelList.Select(o => new GroupsViewModel(o)).ToList();
         }
+
+
+        public IEnumerable<Groups> GetAllGroups()
+        {
+            try
+            {
+                var groups = _unitOfWork.GenericRepository<Groups>().GetAll();
+                return groups;
+            }
+            catch (Exception ex)
+            {
+                _ILogger.LogError(ex.Message);
+            }
+            return Enumerable.Empty<Groups>();
+        }
+
 
         public GroupsViewModel GetById(int groupId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var group = _unitOfWork.GenericRepository<Groups>().GetByID(groupId);
+                return new GroupsViewModel(group);
+               
+            }
+            catch (Exception ex)
+            {
+
+                _ILogger.LogError(ex.Message);
+            }
+            return null;
         }
     }
 }

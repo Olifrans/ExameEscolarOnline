@@ -12,6 +12,11 @@ namespace ExameEscolar.ViewModels
 {
     public class QnAsViewModel
     {
+        public QnAsViewModel()
+        {
+
+        }
+
         public int Id { get; set; }
         [Required]
         [Display(Name = "Exame")]

@@ -10,6 +10,11 @@ namespace ExameEscolar.ViewModels
 {
     public class ExameViewModel
     {
+        public ExameViewModel()
+        {
+                
+        }
+
         public int Id { get; set; }
 
         [Required]

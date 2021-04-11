@@ -10,6 +10,11 @@ namespace ExameEscolar.ViewModels
 {
     public class GroupsViewModel
     {
+        public GroupsViewModel()
+        {
+                
+        }
+
         public int Id { get; set; }
         [Required]
         [Display(Name ="Nome do Grupo")]

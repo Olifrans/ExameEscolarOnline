@@ -1,4 +1,5 @@
-﻿using ExameEscolar.ViewModels;
+﻿using ExameEscolar.DataAccess;
+using ExameEscolar.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,19 +14,9 @@ namespace ExameEscolar.BLL.Services
 
         Task<GroupsViewModel> AddGroupsAsync(GroupsViewModel groupVM);
 
-        IEnumerable<GroupsViewModel> GetAllGroups();
+        IEnumerable<Groups> GetAllGroups();
 
         GroupsViewModel GetById(int groupId);
 
-
-        //bool SetGroupIdToEstudante(GroupsViewModel vm);
-
-        //bool SetExameResultado(AtendeExameViewModel vm);
-
-        //IEnumerable<ResultadoViewModel> GetExameResultado(int estudanteId);
-
-        //EstudanteViewModel GetEstudanteDetalhes(int estudanteId);
-
-        //Task<EstudanteViewModel> UpdateAsync(EstudanteViewModel vm);
     }
 }
