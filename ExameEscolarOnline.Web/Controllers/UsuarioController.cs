@@ -20,14 +20,30 @@ namespace ExameEscolarOnline.Web.Controllers
         }
 
 
-        public IActionResult Index(int pageNumber=1, int pageSize =10)
+
+        public IActionResult Index(int pageNumber = 1, int pageSize = 10)
         {
             return View(accountService.GetAllProfessor(pageNumber, pageSize));
         }
 
+
+
         public IActionResult Create()
         {
-            video 16, posição 02:000
+            return View();
+        }
+
+
+
+        [HttpPost]
+        public IActionResult Create(UsuarioViewModel usuarioViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                accountService.AddProfessor(usuarioViewModel);
+                return RedirectToAction("Index");
+            }
+            return View(usuarioViewModel);
         }
 
     }

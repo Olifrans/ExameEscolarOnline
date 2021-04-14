@@ -85,5 +85,13 @@ namespace ExameEscolar.DataAccess.Data
 
             base.OnModelCreating(modelBuilder);
         }
+
+       /*
+        * Adção de migração via Nuget
+        * 
+        * add-migration Init
+        * update-database
+        * 
+        */
     }
 }
