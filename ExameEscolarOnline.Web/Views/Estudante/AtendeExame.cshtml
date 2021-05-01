@@ -1,0 +1,85 @@
+﻿@model ExameEscolar.ViewModels.AtendeExameViewModel
+
+@{
+    ViewData["Title"] = "AtendeExame";
+}
+
+<h1>@Model.ExameNome</h1>
+
+<h4>Atende Exame</h4>
+<hr />
+
+@if (Model.Menssagem == "")
+{
+<form asp-action="AtendeExame" asp-controller="Estudante" method="post">
+    <input type="hidden" asp-for="EstudanteId" />
+    <ul>
+        @for (var i = 0; i < Model.QnAs.Count(); i++)
+        {
+            <input type="hidden" asp-for="@Model.QnAs[i].Id" />
+            <input type="hidden" asp-for="@Model.QnAs[i].ExameId" />
+            <li>
+                <label for="@Model.QnAs[i].Pergunta">@Model.QnAs[i].Pergunta</label>
+            </li>
+
+            <li>
+                <select asp-for="@Model.QnAs[i].Pergunta" class="form-control">
+                    @*<select asp-for="@Model.QnAs[i].SelectedPergunta" class="form-control">*@
+
+                    <option value="1"> @Model.QnAs[i].Opcao1 </option>
+                    <option value="2"> @Model.QnAs[i].Opcao2 </option>
+                    <option value="3"> @Model.QnAs[i].Opcao3 </option>
+                    <option value="4"> @Model.QnAs[i].Opcao4 </option>
+                </select>
+            </li>
+        }
+    </ul>
+    <button type="submit" name="action">Submit</button>
+</form>
+}
+else
+{
+     <p style="font-size:30px; color:red; text-align:center;"> @Model.Menssagem</p>
+}
+
+
+
+
+
+
+
+
+
+@*<div class="row">
+        <div class="col-md-4">
+            <form asp-action="AtendeExame">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="EstudanteId" class="control-label"></label>
+                    <input asp-for="EstudanteId" class="form-control" />
+                    <span asp-validation-for="EstudanteId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ExameNome" class="control-label"></label>
+                    <input asp-for="ExameNome" class="form-control" />
+                    <span asp-validation-for="ExameNome" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Menssagem" class="control-label"></label>
+                    <input asp-for="Menssagem" class="form-control" />
+                    <span asp-validation-for="Menssagem" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }*@

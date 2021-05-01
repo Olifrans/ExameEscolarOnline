@@ -15,6 +15,7 @@ namespace ExameEscolar.ViewModels
         public string Nome { get; set; }
 
         [Required]
+        [Display(Name = "Usuario Nome")]
         public string UsuarioNome { get; set; }
 
         [Required]

@@ -1,0 +1,151 @@
+﻿@*@model IEnumerable<ExameEscolar.ViewModels.EstudanteViewModel>*@
+@model PaginaDeResultado<ExameEscolar.ViewModels.EstudanteViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Estudante</h1>
+
+<div>
+    <br />
+
+    <a asp-action="Create" asp-controller="Estudante" class="btn btn-primary">Create</a>
+    <div>
+        <table id="estudanteGrid"
+               class="table table-striped table-bordered dt-resposive nowrap"
+               width="100%" cellspacing="0">
+
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Nome de Usuário</th>
+                    <th>Contato</th>
+                    <th></th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var item in Model.Data)
+                {
+                    <tr>
+                        <td>@item.Nome</td>
+                        <td>@item.UsuarioNome</td>
+                        <td>@item.Contato</td>
+                        <td><a asp-action="Result" asp-controller="Estudante"
+                               asp-all-route-data="@(new Dictionary<string, string>{ { "estudanteID", item.Id.ToString()} })" 
+                               class="btn btn-primary"> Result</a></td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+
+        <cs-Pager cs-paging-paginatamanho=(int)Model.PaginaTamanho
+                  cs-paging-paginanumero=(int)Model.PaginaNumero
+                  cs-paging-totalitems=(int)Model.TotalItems
+                  cs-paginanumero-param="paginanumero"
+                  asp-controller="Estudante"
+                  action="Index"
+                  cs-pager-li-current-class="page-item active"
+                  cs-pager-li-other-class="page-item"
+                  cs-pager-li-non-active-class="page-item disabled"
+                  cs-pager-link-current-class="page-link"
+                  cs-pager-link-other-class="page-link">
+        </cs-Pager>
+    </div>
+</div>
+
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('#estudanteGrid').DataTable({
+                "paging": false,
+                "filter": true,
+            });
+        });
+    </script>
+}
+
+@*@addTagHelper *, cloudscribe.Web.Pagination*@
+
+
+
+
+
+@*<p>
+        <a asp-action="Create">Create New</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Id)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Nome)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UsuarioNome)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Senha)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Contato)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CVNomeArquivo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ImagemNomeArquivo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.GroupsId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ContaTotal)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach (var item in Model.Data) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UsuarioNome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Senha)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Contato)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CVNomeArquivo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ImagemNomeArquivo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GroupsId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ContaTotal)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                </td>
+            </tr>
+    }
+        </tbody>
+    </table>*@

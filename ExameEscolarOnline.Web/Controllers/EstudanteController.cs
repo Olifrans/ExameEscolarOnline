@@ -35,11 +35,11 @@ namespace ExameEscolarOnline.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(EstudanteViewModel usuarioViewModel)
+        public async Task<IActionResult>Create(EstudanteViewModel usuarioViewModel)
         {
             if (ModelState.IsValid)
             {
-                estudanteService.AddAsync(usuarioViewModel);
+                await estudanteService.AddAsync(usuarioViewModel);
                 return RedirectToAction("Index");
             }
             return View(estudanteService);
@@ -114,8 +114,6 @@ namespace ExameEscolarOnline.Web.Controllers
             }
             return RedirectToAction("Login", "Account");
         }
-
-
 
         public IActionResult Perfil([FromForm]EstudanteViewModel estudanteViewModel)
         {
