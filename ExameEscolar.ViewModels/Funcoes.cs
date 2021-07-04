@@ -11,6 +11,5 @@ namespace ExameEscolar.ViewModels
         Admin=1,
         Professor=2,
         Estudante=3,
-
     }
 }

@@ -105,28 +105,20 @@ namespace ExameEscolar.DataAccess.Repository
             }
         }
 
-
-
-
         public T GetByID(object id)
         {
             return dbSet.Find(id);
         }
-
-
 
         public async Task<T> GetByIdAsync(object id)
         {
             return await dbSet.FindAsync(id);
         }
 
-
-
         public void Update(T entityToUpdate)
         {
             dbSet.Attach(entityToUpdate);
             _context.Entry(entityToUpdate).State = EntityState.Modified;
-
 
         }
 
