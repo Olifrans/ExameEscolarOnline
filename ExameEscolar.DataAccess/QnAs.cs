@@ -26,6 +26,5 @@ namespace ExameEscolar.DataAccess
         public string Opcao4 { get; set; }
 
         public ICollection<ExameResultado> ExameResultado { get; set; } = new HashSet<ExameResultado>();
-
     }
 }

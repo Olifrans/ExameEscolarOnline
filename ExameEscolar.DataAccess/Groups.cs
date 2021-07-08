@@ -19,6 +19,5 @@ namespace ExameEscolar.DataAccess
         public ICollection<Estudante> Estudante { get; set; } = new HashSet<Estudante>();
 
         public ICollection<Exame> Exame { get; set; } = new HashSet<Exame>();
-
     }
 }
