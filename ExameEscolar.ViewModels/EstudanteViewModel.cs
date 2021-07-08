@@ -11,11 +11,6 @@ namespace ExameEscolar.ViewModels
 {
     public class EstudanteViewModel
     {
-        public EstudanteViewModel()
-        {
-                
-        }
-
         public int Id { get; set; }
         [Required]
         [Display(Name = "Nome do Estudante")]
@@ -28,22 +23,15 @@ namespace ExameEscolar.ViewModels
         [Required]
         [Display(Name = "Contato")]
         public string Contato { get; set; }
-
         [Display(Name = "CVNomeArquivo")]
         public string CVNomeArquivo { get; set; }
-
         public string ImagemNomeArquivo { get; set; }
-
         public int? GroupsId { get; set; }
 
         public IFormFile ImagemArquivo { get; set; }
-
         public IFormFile CVArquivo { get; set; }
-
         public int ContaTotal { get; set; }
-
         public List<EstudanteViewModel> EstudanteList { get; set; }
-
 
         public EstudanteViewModel(Estudante model)
         {
@@ -55,7 +43,6 @@ namespace ExameEscolar.ViewModels
             CVNomeArquivo = model.CVNomeArquivo ?? "";
             ImagemNomeArquivo = model.ImagemNomeArquivo ?? "";
             GroupsId = model.GroupsId;
-
         }
 
         public Estudante ConvertEstudanteViewModel(EstudanteViewModel vm)
@@ -71,6 +58,22 @@ namespace ExameEscolar.ViewModels
                 ImagemNomeArquivo = vm.ImagemNomeArquivo ?? "",
                 GroupsId = vm.GroupsId,
             };
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+        public EstudanteViewModel()
+        {
+
         }
     }
 }

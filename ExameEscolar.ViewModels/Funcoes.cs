@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ExameEscolar.ViewModels
 {
-    public enum enumFuncoes
+    public enum EnumFuncoes
     {
         Admin=1,
         Professor=2,

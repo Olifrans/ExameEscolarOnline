@@ -8,15 +8,10 @@ namespace ExameEscolar.ViewModels
 {
     public class ResultadoViewModel
     {
-        public int EstudanteId { get; set; }
-                
+        public int EstudanteId { get; set; }                
         public string ExameNome { get; set; }
-
         public int TotalDeQuestoes { get; set; }
-
         public int RespostaCorreta { get; set; }
-
         public int RespostaErrada { get; set; }
-
     }
 }

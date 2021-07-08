@@ -10,32 +10,6 @@ namespace ExameEscolar.ViewModels
 {
     public class UsuarioViewModel
     {
-        
-        public int Id { get; set; }
-
-        [Required]
-        [Display(Name = "Nome")]
-        public string Nome { get; set; }
-
-        [Required]
-        [Display(Name = "Usuario Nome")]
-        public string UsuarioNome { get; set; }
-
-        [Required]
-        public string Senha { get; set; }
-
-        public int Funcao { get; set; }
-
-        public List<UsuarioViewModel> UsuarioList { get; set; }
-
-        public int ContaTotal { get; set; }
-
-        public UsuarioViewModel()
-        {
-                
-        }
-      
-
         public UsuarioViewModel(Usuario model)
         {
             Id = model.Id;
@@ -54,8 +28,44 @@ namespace ExameEscolar.ViewModels
                 UsuarioNome = vm.UsuarioNome,
                 Senha = vm.Senha,
                 Funcao = vm.Funcao,
-        };
+            };
         }
+
+        public int Id { get; set; }
+        [Required]
+        [Display(Name = "Nome")]
+        public string Nome { get; set; }
+        [Required]
+        [Display(Name = "Usuario Nome")]
+        public string UsuarioNome { get; set; }
+        [Required]
+        public string Senha { get; set; }
+        public int Funcao { get; set; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        public List<UsuarioViewModel> UsuarioList { get; set; }
+
+        public int ContaTotal { get; set; }
+
+        public UsuarioViewModel()
+        {
+                
+        }          
 
     }
 }

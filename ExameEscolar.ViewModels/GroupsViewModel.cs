@@ -9,12 +9,7 @@ using System.Threading.Tasks;
 namespace ExameEscolar.ViewModels
 {
     public class GroupsViewModel
-    {
-        public GroupsViewModel()
-        {
-                
-        }
-
+    {     
         public int Id { get; set; }
         [Required]
         [Display(Name ="Nome do Grupo")]
@@ -22,22 +17,16 @@ namespace ExameEscolar.ViewModels
         [Required]
         [Display(Name = "Descrição")]
         public string Descricao { get; set; }
-
         public int UsuarioId { get; set; }
 
-
         public List<GroupsViewModel> GroupList { get; set; }
-
         public int ContaTotal { get; set; }
-
-        public List<EstudanteCheckBoxListViewModel> estudanteChecks  { get; set; }
-
 
         public GroupsViewModel(Groups model)
         {
             Id = model.Id;
             Nome = model.Nome ?? "";
-            Descricao = model.Descricao;
+            Descricao = model.Descricao ?? "";
             UsuarioId = model.UsuarioId;            
         }
 
@@ -47,9 +36,31 @@ namespace ExameEscolar.ViewModels
             {
                 Id = vm.Id,
                 Nome = vm.Nome ?? "",
-                Descricao = vm.Descricao,
+                Descricao = vm.Descricao ?? "",
                 UsuarioId = vm.UsuarioId,
             };
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        public List<EstudanteCheckBoxListViewModel> estudanteChecks { get; set; }
+
+        public GroupsViewModel()
+        {
+
         }
 
     }

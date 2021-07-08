@@ -11,47 +11,34 @@ using System.ComponentModel.DataAnnotations;
 namespace ExameEscolar.ViewModels
 {
     public class QnAsViewModel
-    {
-        public QnAsViewModel()
-        {
-
-        }
-
+    {      
         public int Id { get; set; }
         [Required]
         [Display(Name = "Exame")]
         public int ExameId { get; set; }
-
         [Required]
         [Display(Name = "Perguntas")]
         public string Pergunta { get; set; }
-
         [Required]
         [Display(Name = "Respostas")]
         public int Responder { get; set; }
-
         [Required]
         [Display(Name = "Opcao1")]
         public string Opcao1 { get; set; }
-
         [Required]
         [Display(Name = "Opcao2")]
         public string Opcao2 { get; set; }
-
         [Required]
         [Display(Name = "Opcao3")]
         public string Opcao3 { get; set; }
-
         [Required]
         [Display(Name = "Opcao4")]
         public string Opcao4 { get; set; }
 
         public List<QnAsViewModel> QnAsList { get; set; }
-
         public IEnumerable<Exame> ExameList { get; set; }
-
         public int ContaTotal { get; set; }
-
+        public int SelecioneResposta { get; set; }
 
         public QnAsViewModel(QnAs model)
         {
@@ -78,6 +65,24 @@ namespace ExameEscolar.ViewModels
                 Opcao4 = vm.Opcao4 ?? "",
                 Responder = vm.Responder,
             };
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        public QnAsViewModel()
+        {
+
         }
     }
 }

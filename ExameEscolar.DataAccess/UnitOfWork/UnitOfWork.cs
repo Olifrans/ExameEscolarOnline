@@ -21,16 +21,19 @@ namespace ExameEscolar.DataAccess.UnitOfWork
             GC.SuppressFinalize(this);
         }
 
-        private bool fechar = false;
+        private bool disposed = false;
         protected virtual void Dispose(bool disposing)
         {
-            if (disposing)
+            if (!this.disposed)
             {
-                _context.Dispose();
+                if (disposing)
+                {
+                    _context.Dispose();
+                }
             }
-            this.fechar = true;
+            this.disposed = true;
         }
-
+               
         public IGenericRepository<T> GenericRepository<T>() where T : class
         {
             IGenericRepository<T> repo = new GenericRepository<T>(_context);

@@ -36,7 +36,6 @@ namespace ExameEscolar.DataAccess.Data
                 entity.Property(e => e.Senha).IsRequired().HasMaxLength(50);
             });
 
-
             modelBuilder.Entity<Estudante>(entity =>
             {
                 entity.Property(e => e.Nome).IsRequired().HasMaxLength(50);
@@ -85,13 +84,5 @@ namespace ExameEscolar.DataAccess.Data
 
             base.OnModelCreating(modelBuilder);
         }
-
-       /*
-        * Adção de migração via Nuget
-        * 
-        * add-migration Init
-        * update-database
-        * 
-        */
     }
 }

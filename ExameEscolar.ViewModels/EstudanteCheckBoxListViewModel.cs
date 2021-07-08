@@ -10,9 +10,7 @@ namespace ExameEscolar.ViewModels
     public class EstudanteCheckBoxListViewModel
     {
         public int Id { get; set; }
-
         public string Nome { get; set; }
-
-        public bool Selected { get; set; }
+        public bool Selecione { get; set; }
     }
 }

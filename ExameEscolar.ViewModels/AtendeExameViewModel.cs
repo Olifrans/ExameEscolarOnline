@@ -9,11 +9,8 @@ namespace ExameEscolar.ViewModels
     public class AtendeExameViewModel
     {
         public int EstudanteId { get; set; }
-
         public string ExameNome { get; set; }
-
         public List<QnAsViewModel> QnAs { get; set; }
-
         public string Menssagem { get; set; }
     }
 }

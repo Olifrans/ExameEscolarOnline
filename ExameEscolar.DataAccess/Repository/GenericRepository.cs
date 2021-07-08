@@ -16,7 +16,6 @@ namespace ExameEscolar.DataAccess.Repository
         private readonly EscolarDbContext _context = null;
 
 
-
         public GenericRepository(EscolarDbContext context)
         {
             _context = context;
@@ -28,13 +27,11 @@ namespace ExameEscolar.DataAccess.Repository
             dbSet.Add(entity);
         }
 
-
         public async Task<T> AddAsync(T entity)
         {
             dbSet.Add(entity);
             return entity;
         }
-
 
         public void DeleteByID(object id)
         {
@@ -50,6 +47,7 @@ namespace ExameEscolar.DataAccess.Repository
                 dbSet.Attach(entityToDelete);
             }
             dbSet.Remove(entityToDelete);
+
         }
 
         public async Task<T> DeleteAsync(T entityToDelete)
@@ -62,24 +60,24 @@ namespace ExameEscolar.DataAccess.Repository
             return entityToDelete;
         }
 
-
         public void Dispose()
         {
             Dispose(true);
             GC.SuppressFinalize(this);
         }
 
-        private bool fechar = false;
+        private bool disposed = false;
         protected virtual void Dispose(bool disposing)
         {
-            if (disposing)
+            if (!this.disposed)
             {
-                _context.Dispose();
+                if (disposing)
+                {
+                    _context.Dispose();
+                }
             }
-            this.fechar = true;
+            this.disposed = true;
         }
-
-
 
         public IEnumerable<T> GetAll(
             Expression<Func<T, bool>> filter = null,
@@ -91,7 +89,8 @@ namespace ExameEscolar.DataAccess.Repository
             {
                 query = query.Where(filter);
             }
-            foreach (var includeProperty in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+            foreach (var includeProperty in includeProperties.Split(
+                new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
             {
                 query = query.Include(includeProperty);
             }
@@ -128,64 +127,5 @@ namespace ExameEscolar.DataAccess.Repository
             _context.Entry(entityToUpdate).State = EntityState.Modified;
             return entityToUpdate;
         }
-
-
-        /*
-
-        public void Add(T entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<T> AddAsync(T entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<T> DeleteAsync(T entityToDelete)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void DeleteByID(object id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void DeleteByID(T entityToDelete)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Dispose()
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<T> GetAll(Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> OrderBy = null, string includeProperties = "")
-        {
-            throw new NotImplementedException();
-        }
-
-        public T GetByID(object id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<T> GetByIdAsync(object id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Update(T entityToUpdate)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<T> UpdateAsync(T entityToUpdate)
-        {
-            throw new NotImplementedException();
-        }
-        */
     }
 }
