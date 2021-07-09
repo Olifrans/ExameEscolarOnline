@@ -48,21 +48,18 @@ namespace ExameEscolarOnline.Web.Controllers
         public IActionResult AtendeExame()
         {
             var model = new AtendeExameViewModel();
-            LoginViewModel loginViewModel = HttpContext.Session.Get<LoginViewModel>("loginvm");
-            //LoginViewModel sessionObj = HttpContext.Session.Get<LoginViewModel>("loginvm");
-
-
-
-            if (loginViewModel != null)
+            
+            LoginViewModel sessionObj = HttpContext.
+              Session.Get<LoginViewModel>("loginvm");
+            if (sessionObj != null)
             {
-                model.EstudanteId = Convert.ToInt32(loginViewModel.Id);
+                model.EstudanteId = Convert.ToInt32(sessionObj.Id);
                 model.QnAs = new List<QnAsViewModel>();
                 var exameDeHoje = _exameService.GetAllExame().
                     Where(a => a.DataInicio.Date == DateTime.Today.Date).FirstOrDefault();
                 if (exameDeHoje != null)
                 {
                     model.Menssagem = "Nenhum exame para hoje";
-
                 }
                 else
                 {

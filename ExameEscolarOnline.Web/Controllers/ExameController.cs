@@ -15,12 +15,12 @@ namespace ExameEscolarOnline.Web.Controllers
     public class ExameController : Controller
     {     
         private readonly IExameService _exameService;
-        private readonly IGroupsService groupsService;
+        private readonly IGroupsService _groupsService;
 
         public ExameController(IExameService exameService, IGroupsService groupsService)
         {
             _exameService = exameService;
-            this.groupsService = groupsService;
+            this._groupsService = groupsService;
         }
 
         public IActionResult Index(int pageNumber = 1, int pageSize = 10)
@@ -28,14 +28,12 @@ namespace ExameEscolarOnline.Web.Controllers
             return View(_exameService.GetAllExame(pageNumber, pageSize));
         }
 
-
         public IActionResult Create()
         {
             var model = new ExameViewModel();
-            model.GroupsList = groupsService.GetAllGroups();
+            model.GroupsList = _groupsService.GetAllGroups();
             return View(model);
         }
-
 
         [HttpPost]
         public async Task<IActionResult> Create(ExameViewModel exameViewModel)

@@ -6,6 +6,9 @@
     <title>@ViewData["Title"] - ExameEscolarOnline.Web</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+
+    <link href="~/DataTables-1.10.25/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+
 </head>
 <body>
     <header>
@@ -43,6 +46,10 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+
+
+
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

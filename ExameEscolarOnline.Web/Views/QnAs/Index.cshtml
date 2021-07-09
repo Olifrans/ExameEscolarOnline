@@ -1,0 +1,89 @@
+﻿@model IEnumerable<ExameEscolar.ViewModels.QnAsViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExameId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Pergunta)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Responder)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Opcao1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Opcao2)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Opcao3)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Opcao4)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ContaTotal)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SelecioneResposta)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExameId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pergunta)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Responder)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Opcao1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Opcao2)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Opcao3)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Opcao4)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ContaTotal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SelecioneResposta)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

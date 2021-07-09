@@ -1,17 +1,13 @@
 ﻿@model IEnumerable<ExameEscolar.ViewModels.ResultadoViewModel>
 
 @{
-    ViewData["Title"] = "Resultado";
+    ViewData["Title"] = "ViewResultado";
 }
-
 
 <h1>Resultado do Exames dos Estudantes</h1>
 
-<div id="parentDiv">
-    <br />
-
-    @*<a asp-action="Create" asp-controller="Usuario" class="btn btn-primary">Create</a>*@
-
+ <div>
+     <br />
     <div>
         <table id="resultadoGrid"
                class="table table-striped table-bordered dt-resposive nowrap"
@@ -38,46 +34,17 @@
             </tbody>
         </table>
     </div>
-</div>
+ </div>
+
+
 <div>
-    <a asp-action="Index">Estudante List</a>
-    <a id="printPDF" class="btn btn-primary">Imprimir</a>
+    <a asp-action="Perfil">Perfil List</a>
 </div>
 
 
-@section scripts{
-    <script>
-        $('#printPDF').click(function () {
-            var element = document.getElementById('parentDiv');
-
-            //opções de quebra de página com base no modo
-
-            //var mode = "avoid-all";
-            //var pagebreak = (mode === 'specify') ?
-            //    { mode: '', before: '.before', after:'.afater', avoid:'.avoid'} :
-            //    { mode: mode };
-
-            //Gerador de PDF
-            html2pdf().from(element).set({
-                margin: [30, 10, 5, 10],  //top, left, button, right
-                pagebreak: { avoid: 'tr' },
-                jsPDF: { orientation: 'landscape', unit: 'pt', format: 'letter', compressPDF: '' }
-            }).Save()
-        });
-    </script>
-}
 
 
-
-
-
-
-
-
-
-
-
-@*<h1>Resultado</h1>
+@*<h1>ViewResultado</h1>
 
     <p>
         <a asp-action="Create">Create New</a>

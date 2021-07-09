@@ -15,27 +15,24 @@ namespace ExameEscolarOnline.Web.Controllers
 {
     public class QnAsController : Controller
     {
-        private readonly IExameService exameService;
-        private readonly QnAsService qnAsService;
+        private readonly IExameService _exameService;
+        private readonly QnAsService _qnAsService;
 
         public QnAsController(IExameService exameService, QnAsService qnAsService)
         {
-            this.exameService = exameService;
-            this.qnAsService = qnAsService;
+            this._exameService = exameService;
+            this._qnAsService = qnAsService;
         }
-
 
         public IActionResult Index(int pageNumber = 1, int pageSize = 10)
         {
-            return View(qnAsService.GetAllExame(pageNumber, pageSize));
-            //return View(qnAsService.GetAll(pageNumber, pageSize));
+            return View(_qnAsService.GetAllExame(pageNumber, pageSize));
         }
-
 
         public IActionResult Create()
         {
             var model = new QnAsViewModel();
-            model.ExameList = exameService.GetAllExame();
+            model.ExameList = _exameService.GetAllExame();
             return View(model);
         }
 
@@ -44,13 +41,10 @@ namespace ExameEscolarOnline.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                await qnAsService.AddExameAsync (qnviewModel);
-                //await qnAsService.AddAsync (qnviewModel);
+                await _qnAsService.AddExameAsync (qnviewModel);
                 return RedirectToAction(nameof(Index));
             }
             return View(qnviewModel);
         }
-
-
     }
 }

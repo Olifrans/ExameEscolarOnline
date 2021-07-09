@@ -1,12 +1,11 @@
-﻿@*@model IEnumerable<ExameEscolar.ViewModels.UsuarioViewModel>*@
+﻿@*@model IEnumerable<ExameEscolar.ViewModels.UsuarioViewModel> *@
 @model PaginaDeResultado<ExameEscolar.ViewModels.UsuarioViewModel>
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
-
+<h1>Lista de Usuário</h1>
 
 <div>
     <br />
@@ -51,7 +50,6 @@
     </div>
 </div>
 
-
 @section scripts{
     <script>
         $(document).ready(function () {
@@ -63,7 +61,6 @@
     </script>
 }
 
-@*@addTagHelper *, cloudscribe.Web.Pagination*@
 
 
 
@@ -71,7 +68,17 @@
 
 
 
-@*<h1>Index</h1>
+
+
+
+
+@*@model IEnumerable<ExameEscolar.ViewModels.UsuarioViewModel>
+
+    @{
+        ViewData["Title"] = "Index";
+    }
+
+    <h1>Index</h1>
 
     <p>
         <a asp-action="Create">Create New</a>

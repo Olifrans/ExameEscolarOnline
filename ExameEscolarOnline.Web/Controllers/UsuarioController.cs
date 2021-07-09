@@ -37,6 +37,7 @@ namespace ExameEscolarOnline.Web.Controllers
                 return RedirectToAction("Index");
             }
             return View(usuarioViewModel);
+
         }
     }
 }

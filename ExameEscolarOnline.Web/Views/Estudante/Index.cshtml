@@ -32,9 +32,11 @@
                         <td>@item.Nome</td>
                         <td>@item.UsuarioNome</td>
                         <td>@item.Contato</td>
-                        <td><a asp-action="Result" asp-controller="Estudante"
-                               asp-all-route-data="@(new Dictionary<string, string>{ { "estudanteID", item.Id.ToString()} })" 
-                               class="btn btn-primary"> Result</a></td>
+                        <td>
+                            <a asp-action="Result" asp-controller="Estudante"
+                               asp-all-route-data="@(new Dictionary<string, string>{{ "estudanteId", item.Id.ToString()}})"
+                               class="btn btn-primary">Result</a>
+                        </td>
                     </tr>
                 }
 
@@ -68,13 +70,24 @@
     </script>
 }
 
-@*@addTagHelper *, cloudscribe.Web.Pagination*@
 
 
 
 
 
-@*<p>
+
+
+
+
+@*@model IEnumerable<ExameEscolar.ViewModels.EstudanteViewModel>
+
+    @{
+        ViewData["Title"] = "Index";
+    }
+
+    <h1>Index</h1>
+
+    <p>
         <a asp-action="Create">Create New</a>
     </p>
     <table class="table">
@@ -111,7 +124,7 @@
             </tr>
         </thead>
         <tbody>
-    @foreach (var item in Model.Data) {
+    @foreach (var item in Model) {
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.Id)

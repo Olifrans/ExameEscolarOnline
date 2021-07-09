@@ -3,11 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
 using ExameEscolar.BLL.Services;
 using ExameEscolar.ViewModels;
 using Microsoft.AspNetCore.Http;
-
 using System.Configuration;
 using System.IO;
 
@@ -29,14 +27,11 @@ namespace ExameEscolarOnline.Web.Controllers
             return View(_groupsService.GetAllGroups(pageNumber, pageSize));
         }
 
-
         public IActionResult Create()
         {
             return View();
         }
-
-
-     
+             
         public async Task<IActionResult> Create(GroupsViewModel groupsViewModel)
         {
             if (ModelState.IsValid)
@@ -61,7 +56,6 @@ namespace ExameEscolarOnline.Web.Controllers
             return View(model);
         }
 
-
         [HttpPost]
         public IActionResult Detalhes(GroupsViewModel groupsViewModel)
         {
@@ -70,6 +64,5 @@ namespace ExameEscolarOnline.Web.Controllers
                 return RedirectToAction("Detalhes", new { groupId = groupsViewModel.Id});
             return View(groupsViewModel);
         }
-
     }
 }
