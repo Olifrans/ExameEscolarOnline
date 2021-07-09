@@ -22,7 +22,6 @@ namespace ExameEscolar.BLL.Services
             _ILogger = iLogger;
         }
 
-
         public bool AddProfessor(UsuarioViewModel vm)
         {
             try
@@ -32,7 +31,7 @@ namespace ExameEscolar.BLL.Services
                     Nome = vm.Nome,
                     UsuarioNome = vm.UsuarioNome,
                     Senha = vm.Senha,
-                    Funcao = (int)enumFuncoes.Professor,
+                    Funcao = (int)EnumFuncoes.Professor,
 
                 };
                 _unitOfWork.GenericRepository<Usuario>().AddAsync(objeto);
@@ -46,24 +45,24 @@ namespace ExameEscolar.BLL.Services
             return true;
         }
 
-
-        public PaginaDeResultado<UsuarioViewModel> GetAllProfessor(int PaginaNumero, int PaginaTamanho)
+        public PaginaDeResultado<UsuarioViewModel> GetAllProfessor(int paginaNumero, int paginaTamanho)
         {
             var model = new UsuarioViewModel();
             try
             {
-                int ExcludeRecords = (PaginaTamanho * PaginaNumero) - PaginaTamanho;
+                int ExcludeRecords = (paginaTamanho * paginaNumero) - paginaTamanho;
                 List<UsuarioViewModel> detalheList = new List<UsuarioViewModel>();
                 var modelList = _unitOfWork.GenericRepository<Usuario>().GetAll()
-                    .Where(x => x.Funcao == (int)enumFuncoes.Professor).Skip(ExcludeRecords)
-                    .Take(PaginaTamanho).ToList();
+                    .Where(x => x.Funcao == (int)EnumFuncoes.Professor).Skip(ExcludeRecords)
+                    .Take(paginaTamanho).ToList();
+
                 detalheList = ListInfo(modelList);
 
-                if (true)
+                if (detalheList !=null)
                 {
                     model.UsuarioList = detalheList;
                     model.ContaTotal = _unitOfWork.GenericRepository<Usuario>().GetAll()
-                        .Count(x => x.Funcao == (int)enumFuncoes.Professor);
+                        .Count(x => x.Funcao == (int)EnumFuncoes.Professor);
                 }
             }
             catch (Exception ex)
@@ -75,8 +74,8 @@ namespace ExameEscolar.BLL.Services
             {
                 Data = model.UsuarioList,
                 TotalItems = model.ContaTotal,
-                PaginaNumero = PaginaNumero,
-                PaginaTamanho = PaginaTamanho,
+                PaginaNumero = paginaNumero,
+                PaginaTamanho = paginaTamanho,
             };
             return resultado;
 
@@ -89,7 +88,7 @@ namespace ExameEscolar.BLL.Services
 
         public LoginViewModel Login(LoginViewModel vm)
         {
-            if (vm.Funcao == (int)enumFuncoes.Admin || vm.Funcao == (int)enumFuncoes.Professor)
+            if (vm.Funcao == (int)EnumFuncoes.Admin || vm.Funcao == (int)EnumFuncoes.Professor)
             {
 
                 var usuario = _unitOfWork.GenericRepository<Usuario>().GetAll().

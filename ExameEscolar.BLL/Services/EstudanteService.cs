@@ -27,7 +27,6 @@ namespace ExameEscolar.BLL.Services
             {
                 Estudante objeto = vm.ConvertEstudanteViewModel(vm);
                 await _unitOfWork.GenericRepository<Estudante>().AddAsync(objeto);
-
             }
             catch (Exception ex)
             {
@@ -36,18 +35,17 @@ namespace ExameEscolar.BLL.Services
             return vm;
         }
 
-        public PaginaDeResultado<EstudanteViewModel> GetAll(int PaginaNumero, int PaginaTamanho)
+        public PaginaDeResultado<EstudanteViewModel> GetAll(int paginaNumero, int paginaTamanho)
         {
             var model = new EstudanteViewModel();
             try
             {
-                int ExcludeRecords = (PaginaTamanho * PaginaNumero) - PaginaNumero;
+                int ExcludeRecords = (paginaTamanho * paginaNumero) - paginaNumero;
                 List<EstudanteViewModel> detalheList = new List<EstudanteViewModel>();
-                var modelList = _unitOfWork.GenericRepository<Estudante>().GetAll().Skip(ExcludeRecords).Take(PaginaTamanho).ToList();
+                var modelList = _unitOfWork.GenericRepository<Estudante>().GetAll().Skip(ExcludeRecords).Take(paginaTamanho).ToList();
                 var contaTotal = _unitOfWork.GenericRepository<Estudante>().GetAll().ToList();
 
                 detalheList = GroupListInfo(modelList);
-
                 if (detalheList != null)
                 {
                     model.EstudanteList = detalheList;
@@ -63,8 +61,8 @@ namespace ExameEscolar.BLL.Services
             {
                 Data = model.EstudanteList,
                 TotalItems = model.ContaTotal,
-                PaginaNumero = PaginaNumero,
-                PaginaTamanho = PaginaTamanho,
+                PaginaNumero = paginaNumero,
+                PaginaTamanho = paginaTamanho,
             };
             return resultado;
         }
@@ -108,11 +106,12 @@ namespace ExameEscolar.BLL.Services
 
                     TotalDeQuestoes = exameResultado.Count(a => a.EstudanteId == estudanteId
                     && a.ExameId == exj.ex.Id),
-                    RespostaCorreta = exameResultado.Count(a => a.EstudanteId == estudanteId && a.ExameId == exj.ex.Id && a.Responder == q.Responder),
+
+                    RespostaCorreta = exameResultado.Count(a => a.EstudanteId == estudanteId && a.ExameId == exj.ex.Id && 
+                    a.Responder == q.Responder),
                     RespostaErrada = exameResultado.Count(a => a.EstudanteId == estudanteId &&
                     a.ExameId == exj.ex.Id && a.Responder != q.Responder)
                 });
-
                 return requiredData;
             }
             catch (Exception ex)
@@ -163,11 +162,11 @@ namespace ExameEscolar.BLL.Services
         {
             try
             {
-                foreach (var item in vm.estudanteChecks)
+                foreach (var item in vm.EstudanteCheckList)
                 {
                     var estudante = _unitOfWork.GenericRepository<Estudante>().GetByID(item.Id);
 
-                    if (item.Selected)
+                    if (item.Selecione)
                     {
                         estudante.GroupsId = vm.Id;
                         _unitOfWork.GenericRepository<Estudante>().Update(estudante);
@@ -198,8 +197,10 @@ namespace ExameEscolar.BLL.Services
                 Estudante objeto = _unitOfWork.GenericRepository<Estudante>().GetByID(vm.Id);
                 objeto.Nome = vm.Nome;
                 objeto.UsuarioNome = vm.UsuarioNome;
-                objeto.ImagemNomeArquivo = vm.ImagemNomeArquivo != null ? vm.ImagemNomeArquivo : objeto.ImagemNomeArquivo;
-                objeto.CVNomeArquivo = vm.CVNomeArquivo != null ? vm.CVNomeArquivo : objeto.CVNomeArquivo;
+                objeto.ImagemNomeArquivo = vm.ImagemNomeArquivo != null ? 
+                    vm.ImagemNomeArquivo : objeto.ImagemNomeArquivo;
+                objeto.CVNomeArquivo = vm.CVNomeArquivo != null ? 
+                    vm.CVNomeArquivo : objeto.CVNomeArquivo;
                 objeto.Contato = vm.Contato;
                 await _unitOfWork.GenericRepository<Estudante>().UpdateAsync(objeto);
                 _unitOfWork.Save();

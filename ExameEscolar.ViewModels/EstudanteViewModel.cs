@@ -60,17 +60,6 @@ namespace ExameEscolar.ViewModels
             };
         }
 
-
-
-
-
-
-
-
-
-
-
-
         public EstudanteViewModel()
         {
 

@@ -10,21 +10,13 @@ namespace ExameEscolar.BLL.Services
 {
     public interface IEstudanteService
     {
-        PaginaDeResultado<EstudanteViewModel> GetAll(int PaginaNumero, int PaginaTamanho);
-
+        PaginaDeResultado<EstudanteViewModel> GetAll(int paginaNumero, int paginaTamanho);
         Task<EstudanteViewModel> AddAsync(EstudanteViewModel vm);
-
         IEnumerable<Estudante> GetAllEstudante();
-
         bool SetGroupIdToEstudante(GroupsViewModel vm);
-
         bool SetExameResultado(AtendeExameViewModel vm);
-
         IEnumerable<ResultadoViewModel> GetExameResultado(int estudanteId);
-
         EstudanteViewModel GetEstudanteDetalhes(int estudanteId);
-
         Task<EstudanteViewModel> UpdateAsync(EstudanteViewModel vm);
-
     }   
 }

@@ -21,6 +21,7 @@ namespace ExameEscolar.ViewModels
 
         public List<GroupsViewModel> GroupList { get; set; }
         public int ContaTotal { get; set; }
+        public List<EstudanteCheckBoxListViewModel> EstudanteCheckList { get; set; }
 
         public GroupsViewModel(Groups model)
         {
@@ -55,8 +56,6 @@ namespace ExameEscolar.ViewModels
 
 
 
-
-        public List<EstudanteCheckBoxListViewModel> estudanteChecks { get; set; }
 
         public GroupsViewModel()
         {

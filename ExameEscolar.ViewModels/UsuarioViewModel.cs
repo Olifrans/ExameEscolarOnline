@@ -42,30 +42,16 @@ namespace ExameEscolar.ViewModels
         public string Senha { get; set; }
         public int Funcao { get; set; }
 
+        public UsuarioViewModel()
+        {
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        }
 
         public List<UsuarioViewModel> UsuarioList { get; set; }
 
         public int ContaTotal { get; set; }
 
-        public UsuarioViewModel()
-        {
                 
-        }          
 
     }
 }
