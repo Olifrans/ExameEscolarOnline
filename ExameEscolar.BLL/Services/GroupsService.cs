@@ -14,7 +14,6 @@ namespace ExameEscolar.BLL.Services
 {
     public class GroupsService : IGroupsService
     {
-
         IUnitOfWork _unitOfWork;
         ILogger<GroupsService> _ILogger;
 
@@ -39,25 +38,24 @@ namespace ExameEscolar.BLL.Services
             return groupVM;
         }
 
-        public PaginaDeResultado<GroupsViewModel> GetAllGroups(int PaginaNumero, int PaginaTamanho)
+        public PaginaDeResultado<GroupsViewModel> GetAllGroups(int paginaNumero, int paginaTamanho)
         {
             var model = new GroupsViewModel();
             try
             {
 
-                int ExcludeRecords = (PaginaTamanho * PaginaNumero) - PaginaNumero;
+                int ExcludeRecords = (paginaTamanho * paginaNumero) - paginaNumero;
                 List<GroupsViewModel> detalheList = new List<GroupsViewModel>();
-                var modelList = _unitOfWork.GenericRepository<Groups>().GetAll().Skip(ExcludeRecords).Take(PaginaTamanho).ToList();
+                var modelList = _unitOfWork.GenericRepository<Groups>().GetAll()
+                    .Skip(ExcludeRecords).Take(paginaTamanho).ToList();
                 var contaTotal = _unitOfWork.GenericRepository<Groups>().GetAll().ToList();
 
                 detalheList = GroupListInfo(modelList);
-
                 if (detalheList != null)
                 {
                     model.GroupList = detalheList;
                     model.ContaTotal = contaTotal.Count();
                 }
-
             }
             catch (Exception ex)
             {
@@ -67,8 +65,8 @@ namespace ExameEscolar.BLL.Services
             {
                 Data = model.GroupList,
                 TotalItems = model.ContaTotal,
-                PaginaNumero = PaginaNumero,
-                PaginaTamanho = PaginaTamanho,
+                PaginaNumero = paginaNumero,
+                PaginaTamanho = paginaTamanho,
             };
             return resultado;
 
@@ -78,7 +76,6 @@ namespace ExameEscolar.BLL.Services
         {
             return modelList.Select(o => new GroupsViewModel(o)).ToList();
         }
-
 
         public IEnumerable<Groups> GetAllGroups()
         {
@@ -93,7 +90,6 @@ namespace ExameEscolar.BLL.Services
             }
             return Enumerable.Empty<Groups>();
         }
-
 
         public GroupsViewModel GetById(int groupId)
         {

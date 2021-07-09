@@ -13,20 +13,20 @@ namespace ExameEscolarOnline.Web.Controllers
 {
     public class EstudanteController : Controller
     {
-        private readonly IEstudanteService estudanteService;
-        private readonly IExameService exameService;
-        private readonly IQnAsService qnAsService;
+        private readonly IEstudanteService _estudanteService;
+        private readonly IExameService _exameService;
+        private readonly IQnAsService _qnAsService;
 
         public EstudanteController(IEstudanteService estudanteService, IExameService exameService, IQnAsService qnAsService)
         {
-            this.estudanteService = estudanteService;
-            this.exameService = exameService;
-            this.qnAsService = qnAsService;
+            this._estudanteService = estudanteService;
+            this._exameService = exameService;
+            this._qnAsService = qnAsService;
         }
 
         public IActionResult Index(int pageNumber = 1, int pageSize = 10)
         {
-            return View(estudanteService.GetAll(pageNumber, pageSize));
+            return View(_estudanteService.GetAll(pageNumber, pageSize));
         }
 
         public IActionResult Create()
@@ -39,21 +39,25 @@ namespace ExameEscolarOnline.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                await estudanteService.AddAsync(usuarioViewModel);
-                return RedirectToAction("Index");
+                await _estudanteService.AddAsync(usuarioViewModel);
+                return RedirectToAction(nameof(Index));
             }
-            return View(estudanteService);
+            return View(_estudanteService);
         }
 
         public IActionResult AtendeExame()
         {
             var model = new AtendeExameViewModel();
-            LoginViewModel sessionObj = HttpContext.Session.Get<LoginViewModel>("loginvm");
-            if (sessionObj != null)
+            LoginViewModel loginViewModel = HttpContext.Session.Get<LoginViewModel>("loginvm");
+            //LoginViewModel sessionObj = HttpContext.Session.Get<LoginViewModel>("loginvm");
+
+
+
+            if (loginViewModel != null)
             {
-                model.EstudanteId = Convert.ToInt32(sessionObj.Id);
+                model.EstudanteId = Convert.ToInt32(loginViewModel.Id);
                 model.QnAs = new List<QnAsViewModel>();
-                var exameDeHoje = exameService.GetAllExame().
+                var exameDeHoje = _exameService.GetAllExame().
                     Where(a => a.DataInicio.Date == DateTime.Today.Date).FirstOrDefault();
                 if (exameDeHoje != null)
                 {
@@ -62,9 +66,9 @@ namespace ExameEscolarOnline.Web.Controllers
                 }
                 else
                 {
-                    if (!qnAsService.IsExameAttendet(exameDeHoje.Id, model.EstudanteId))
+                    if (!_qnAsService.IsExameAttendet(exameDeHoje.Id, model.EstudanteId))
                     {
-                        model.QnAs = qnAsService.GetAllQnAByExame(exameDeHoje.Id).ToList();
+                        model.QnAs = _qnAsService.GetAllQnAByExame(exameDeHoje.Id).ToList();
                         model.ExameNome = exameDeHoje.Titulo;
                         model.Menssagem = "";
                     }
@@ -78,13 +82,13 @@ namespace ExameEscolarOnline.Web.Controllers
         [HttpPost]
         public IActionResult AtendeExame(AtendeExameViewModel atendeExameViewModel)
         {
-            bool resultado = estudanteService.SetExameResultado(atendeExameViewModel);
+            bool resultado = _estudanteService.SetExameResultado(atendeExameViewModel);
             return RedirectToAction("AtendeExame");
         }
 
         public IActionResult Resultado(string estudanteId)
         {
-            var model = estudanteService.GetExameResultado(Convert.ToInt32(estudanteId));
+            var model = _estudanteService.GetExameResultado(Convert.ToInt32(estudanteId));
             return View(model);
         }
 
@@ -93,7 +97,7 @@ namespace ExameEscolarOnline.Web.Controllers
             LoginViewModel sessionObj = HttpContext.Session.Get<LoginViewModel>("loginvm");
             if (sessionObj != null)
             {
-                var model = estudanteService.GetExameResultado(Convert.ToInt32(sessionObj.Id));
+                var model = _estudanteService.GetExameResultado(Convert.ToInt32(sessionObj.Id));
                 return View(model);
             }
             return RedirectToAction("Login", "Account");
@@ -104,7 +108,7 @@ namespace ExameEscolarOnline.Web.Controllers
             LoginViewModel sessionObj = HttpContext.Session.Get<LoginViewModel>("loginvm");
             if (sessionObj != null)
             {
-                var model = estudanteService.GetEstudanteDetalhes(Convert.ToInt32(sessionObj.Id));
+                var model = _estudanteService.GetEstudanteDetalhes(Convert.ToInt32(sessionObj.Id));
                 if (model.ImagemNomeArquivo != null)
                 {
                     model.ImagemNomeArquivo = ConfigurationManager.GetFilePath() + model.ImagemNomeArquivo;
@@ -123,7 +127,7 @@ namespace ExameEscolarOnline.Web.Controllers
             if (estudanteViewModel.CVArquivo != null)
                 estudanteViewModel.CVNomeArquivo = SaveEstudanteArquivo(estudanteViewModel.CVArquivo);
 
-            estudanteService.UpdateAsync(estudanteViewModel);
+            _estudanteService.UpdateAsync(estudanteViewModel);
             return RedirectToAction("Perfil");
 
         }

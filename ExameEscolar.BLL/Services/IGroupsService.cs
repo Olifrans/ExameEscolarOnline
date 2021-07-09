@@ -10,13 +10,12 @@ namespace ExameEscolar.BLL.Services
 {
     public interface IGroupsService
     {
-        PaginaDeResultado<GroupsViewModel> GetAllGroups(int PaginaNumero, int PaginaTamanho);
+        PaginaDeResultado<GroupsViewModel> GetAllGroups(int paginaNumero, int paginaTamanho);
 
         Task<GroupsViewModel> AddGroupsAsync(GroupsViewModel groupVM);
 
         IEnumerable<Groups> GetAllGroups();
 
         GroupsViewModel GetById(int groupId);
-
     }
 }

@@ -51,12 +51,12 @@ namespace ExameEscolarOnline.Web.Controllers
         public IActionResult Detalhes(string groupId)
         {
             var model = _groupsService.GetById(Convert.ToInt32(groupId));
-            model.estudanteChecks = _estudanteService.GetAllEstudante().Select(
+            model.EstudanteCheckList = _estudanteService.GetAllEstudante().Select(
                 a => new EstudanteCheckBoxListViewModel()
                 {
                     Id = a.Id,
                     Nome = a.Nome,
-                    Selected = a.GroupsId == Convert.ToInt32(groupId)
+                    Selecione = a.GroupsId == Convert.ToInt32(groupId)
                 }).ToList();
             return View(model);
         }

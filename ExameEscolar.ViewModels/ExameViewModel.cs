@@ -48,30 +48,6 @@ namespace ExameEscolar.ViewModels
             };
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         public ExameViewModel()
         {
 

@@ -67,19 +67,6 @@ namespace ExameEscolar.ViewModels
             };
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
         public QnAsViewModel()
         {
 

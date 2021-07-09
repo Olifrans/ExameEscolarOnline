@@ -15,20 +15,18 @@ namespace ExameEscolar.BLL.Services
         IUnitOfWork _unitOfWork;
         ILogger<QnAsViewModel> _ILogger;
 
-
         public QnAsService(IUnitOfWork unitOfWork, ILogger<QnAsViewModel> iLogger)
         {
             _unitOfWork = unitOfWork;
             _ILogger = iLogger;
         }
 
-
         public async Task<QnAsViewModel> AddExameAsync(QnAsViewModel QnAVM)
         {
             try
             {
-                QnAs objGroups = QnAVM.ConvertQnAsViewModel(QnAVM);
-                await _unitOfWork.GenericRepository<QnAs>().AddAsync(objGroups);
+                QnAs objQnAs = QnAVM.ConvertQnAsViewModel(QnAVM);
+                await _unitOfWork.GenericRepository<QnAs>().AddAsync(objQnAs);
                 _unitOfWork.Save();
             }
             catch (Exception ex)
@@ -38,25 +36,23 @@ namespace ExameEscolar.BLL.Services
             return QnAVM;
         }
 
-
-        public PaginaDeResultado<QnAsViewModel> GetAllExame(int PaginaNumero, int PaginaTamanho)
+        public PaginaDeResultado<QnAsViewModel> GetAllExame(int paginaNumero, int paginaTamanho)
         {
             var model = new QnAsViewModel();
             try
             {
-                int ExcludeRecords = (PaginaTamanho * PaginaNumero) - PaginaNumero;
+                int ExcludeRecords = (paginaTamanho * paginaNumero) - paginaNumero;
                 List<QnAsViewModel> detalheList = new List<QnAsViewModel>();
-                var modelList = _unitOfWork.GenericRepository<QnAs>().GetAll().Skip(ExcludeRecords).Take(PaginaTamanho).ToList();
+                var modelList = _unitOfWork.GenericRepository<QnAs>().GetAll()
+                    .Skip(ExcludeRecords).Take(paginaTamanho).ToList();
                 var contaTotal = _unitOfWork.GenericRepository<QnAs>().GetAll().ToList();
 
                 detalheList = ListInfo(modelList);
-
                 if (detalheList != null)
                 {
                     model.QnAsList = detalheList;
                     model.ContaTotal = contaTotal.Count();
                 }
-
             }
             catch (Exception ex)
             {
@@ -66,25 +62,23 @@ namespace ExameEscolar.BLL.Services
             {
                 Data = model.QnAsList,
                 TotalItems = model.ContaTotal,
-                PaginaNumero = PaginaNumero,
-                PaginaTamanho = PaginaTamanho,
+                PaginaNumero = paginaNumero,
+                PaginaTamanho = paginaTamanho,
             };
             return resultado;
-
         }
-
 
         private List<QnAsViewModel> ListInfo(List<QnAs> modelList)
         {
             return modelList.Select(o => new QnAsViewModel(o)).ToList();
         }
 
-
         public IEnumerable<QnAsViewModel> GetAllQnAByExame(int exameId)
         {
             try
             {
-                var qnaList = _unitOfWork.GenericRepository<QnAs>().GetAll().Where(x => x.ExameId == exameId);
+                var qnaList = _unitOfWork.GenericRepository<QnAs>()
+                    .GetAll().Where(x => x.ExameId == exameId);
                 return ListInfo(qnaList.ToList());
             }
             catch (Exception ex)
@@ -94,17 +88,16 @@ namespace ExameEscolar.BLL.Services
             return Enumerable.Empty<QnAsViewModel>();
         }
 
-
         public bool IsExameAttendet(int exameId, int estudanteId)
         {
             try
             {
-                var qnaRecord = _unitOfWork.GenericRepository<ExameResultado>().GetAll().FirstOrDefault(x => x.ExameId == exameId && x.EstudanteId == estudanteId);
+                var qnaRecord = _unitOfWork.GenericRepository<ExameResultado>().GetAll()
+                    .FirstOrDefault(x => x.ExameId == exameId && x.EstudanteId == estudanteId);
                 return qnaRecord == null ? false : true;
             }
             catch (Exception ex)
             {
-
                 _ILogger.LogError(ex.Message);
             }
             return false;

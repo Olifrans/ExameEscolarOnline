@@ -11,18 +11,12 @@ namespace ExameEscolarOnline.Web.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly IAccountService accountService;
+        private readonly IAccountService _accountService;
 
         public AccountController(IAccountService accountService)
         {
-            this.accountService = accountService;
-        }
-
-        public IActionResult Index()
-        {
-            return View();
-        }
-
+            this._accountService = accountService;
+        }              
 
         public IActionResult Login()
         {
@@ -35,14 +29,11 @@ namespace ExameEscolarOnline.Web.Controllers
             }
         }
 
-                
         public IActionResult Logout()
         {
             HttpContext.Session.Set<LoginViewModel>("loginvm", null);
             return RedirectToAction("Login");
         }
-
-
 
         [HttpPost]
         [AutoValidateAntiforgeryToken]
@@ -50,29 +41,32 @@ namespace ExameEscolarOnline.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                LoginViewModel loginVM = accountService.Login(loginVewModel);
+                LoginViewModel loginVM = _accountService.Login(loginVewModel);
                 if (loginVM != null)
                 {
                     HttpContext.Session.Set<LoginViewModel>("loginvm", loginVM);
                     return RedirectUser(loginVM);
                 }
             }
-            return View(loginVewModel);           
-        }
-
-
+            return View(loginVewModel);
+        }       
+               
         public IActionResult RedirectUser(LoginViewModel loginViewModel)
         {
-            if (loginViewModel.Funcao == (int)enumFuncoes.Admin)
+            if (loginViewModel.Funcao == (int)EnumFuncoes.Admin)
             {
                 return RedirectToAction("Index", "Usuario");
             }
-            else if (loginViewModel.Funcao == (int)enumFuncoes.Professor)
+            else if (loginViewModel.Funcao == (int)EnumFuncoes.Professor)
             {
                 return RedirectToAction("Index", "Exame");
             }
             return RedirectToAction("Index", "Estudante");
         }
 
+        public IActionResult Index()
+        {
+            return View();
+        }
     }
 }

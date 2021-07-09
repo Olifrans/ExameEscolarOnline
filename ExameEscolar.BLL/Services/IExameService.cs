@@ -12,12 +12,10 @@ namespace ExameEscolar.BLL.Services
 {
     public interface IExameService
     {
-        PaginaDeResultado<ExameViewModel> GetAllExame(int PaginaNumero, int PaginaTamanho);
+        PaginaDeResultado<ExameViewModel> GetAllExame(int paginaNumero, int paginaTamanho);
 
         Task<ExameViewModel> AddExameAsync(ExameViewModel exameVM);
 
         IEnumerable<Exame> GetAllExame();
-
-        //ExameViewModel GetById(int groupId);
     }
 }

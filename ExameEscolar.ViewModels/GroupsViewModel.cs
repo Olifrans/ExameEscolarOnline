@@ -42,25 +42,9 @@ namespace ExameEscolar.ViewModels
             };
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         public GroupsViewModel()
         {
 
         }
-
     }
 }

@@ -43,11 +43,11 @@ namespace ExameEscolar.BLL.Services
             {
                 int ExcludeRecords = (PaginaTamanho * PaginaNumero) - PaginaNumero;
                 List<ExameViewModel> detalheList = new List<ExameViewModel>();
-                var modelList = _unitOfWork.GenericRepository<Exame>().GetAll().Skip(ExcludeRecords).Take(PaginaTamanho).ToList();
+                var modelList = _unitOfWork.GenericRepository<Exame>().GetAll()
+                    .Skip(ExcludeRecords).Take(PaginaTamanho).ToList();
                 var contaTotal = _unitOfWork.GenericRepository<Exame>().GetAll().ToList();
 
                 detalheList = ExameListInfo(modelList);
-
                 if (detalheList != null)
                 {
                     model.ExameList = detalheList;

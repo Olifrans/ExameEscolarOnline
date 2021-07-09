@@ -14,7 +14,6 @@ namespace ExameEscolarOnline.Web
             session.SetString(key, JsonSerializer.Serialize(value));
         }
 
-
         public static T Get<T>(this ISession session, String key)
         {
             var value = session.GetString(key);

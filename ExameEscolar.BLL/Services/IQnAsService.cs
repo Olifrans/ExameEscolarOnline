@@ -10,12 +10,13 @@ namespace ExameEscolar.BLL.Services
 {
     public interface IQnAsService
     {
-        PaginaDeResultado<QnAsViewModel> GetAllExame(int PaginaNumero, int PaginaTamanho);
+        PaginaDeResultado<QnAsViewModel> GetAllExame(int paginaNumero, int paginaTamanho);
 
         Task<QnAsViewModel> AddExameAsync(QnAsViewModel QnAVM);
 
         IEnumerable<QnAsViewModel> GetAllQnAByExame(int exameId);
 
         bool IsExameAttendet (int exameId, int estudanteId);
+
     }
 }

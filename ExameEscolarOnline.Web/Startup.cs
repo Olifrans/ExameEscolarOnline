@@ -30,14 +30,15 @@ namespace ExameEscolarOnline.Web
         {
             services.AddControllersWithViews();
 
-            services.AddDbContext<EscolarDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ExameEscolarConnection")));
+            services.AddDbContext<EscolarDbContext>(options => 
+                options.UseSqlServer(Configuration.GetConnectionString("ExameEscolarConnection")));
 
-            services.AddTransient<IUnitOfWork, UnitOfWork>();
-            services.AddTransient<IGroupsService, GroupsService>();
+            services.AddTransient<IUnitOfWork, UnitOfWork>();       
+            services.AddTransient<IAccountService, AccountService>();
             services.AddTransient<IEstudanteService, EstudanteService>();
             services.AddTransient<IExameService, ExameService>();
-            services.AddTransient<IQnAsService, QnAsService>();
-            services.AddTransient<IAccountService, AccountService>();
+            services.AddTransient<IGroupsService, GroupsService>();
+            services.AddTransient<IQnAsService, QnAsService>();       
 
         }
 
