@@ -1,45 +1,41 @@
-﻿@model PaginaDeResultado<ExameEscolar.ViewModels.QnAsViewModel>
+﻿@model PaginaDeResultado<ExameEscolar.ViewModels.ExameViewModel>
 
 @{
     ViewData["Title"] = "Index";
 }
+
+
 
 <h1>Exame Documentos</h1>
 
 <div>
     <br />
 
-    <a asp-action="Create" asp-controller="QnAs" class="btn btn-primary">Create</a>
+    <a asp-action="Create" asp-controller="Groups" class="btn btn-primary">Create</a>
     <div>
-        <table id="qnaGrid"
+        <table id="groupGrid"
                class="table table-striped table-bordered dt-resposive nowrap"
                width="100%" cellspacing="0">
 
             <thead>
                 <tr>
-                    <th>Perguntas</th>
-                    <th>Opcao1</th>
-                    <th>Opcao2</th>
-                    <th>Opcao3</th>
-                    <th>Opcao4</th>
-                    @*<th></th>*@
+                    <th>Nome</th>
+                    <th>Descrição>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var item in Model.Data)
                 {
                     <tr>
-                        <td>@item.Pergunta</td>
-                        <td>@item.Opcao1</td>
-                        <td>@item.Opcao2</td>
-                        <td>@item.Opcao3</td>
-                        <td>@item.Opcao4</td>
+                        <td>@item.DataInicio</td>  @*// verificar o controllers para alterar para ( <td>@item.Nome</td>)*@
+                        <td>@item.Descricao</td>
 
-                        @*<td>
-                            <a asp-action="Result" asp-controller="QnAS"
-                               asp-all-route-data="@(new Dictionary<string, string>{{ "estudanteId", item.Id.ToString()}})"
-                               class="btn btn-primary">Result</a>
-                        </td>*@
+                        <td>
+                                <a asp-action="Detalhes" asp-controller="Groups"
+                                   asp-all-route-data="@(new Dictionary<string, string>{{ "groupId", item.Id.ToString()}})"
+                                   class="btn btn-primary">Result</a>
+                            </td>
 
                     </tr>
                 }
@@ -51,7 +47,7 @@
                   cs-paging-paginanumero=(int)Model.PaginaNumero
                   cs-paging-totalitems=(int)Model.TotalItems
                   cs-paginanumero-param="paginanumero"
-                  asp-controller="QnAs"
+                  asp-controller="Groups"
                   action="Index"
                   cs-pager-li-current-class="page-item active"
                   cs-pager-li-other-class="page-item"
@@ -67,7 +63,7 @@
 @section scripts{
     <script>
         $(document).ready(function () {
-            $('#qnaGrid').DataTable({
+            $('#groupGrid').DataTable({
                 "paging": false,
                 "filter": true,
             });
@@ -81,57 +77,34 @@
 
 
 
+@*<h1>Index</h1>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-@*<table class="table">
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+    <table class="table">
         <thead>
             <tr>
                 <th>
                     @Html.DisplayNameFor(model => model.Id)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.ExameId)
+                    @Html.DisplayNameFor(model => model.Titulo)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Pergunta)
+                    @Html.DisplayNameFor(model => model.Descricao)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Responder)
+                    @Html.DisplayNameFor(model => model.DataInicio)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Opcao1)
+                    @Html.DisplayNameFor(model => model.Hora)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Opcao2)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Opcao3)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Opcao4)
+                    @Html.DisplayNameFor(model => model.GroupsId)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.ContaTotal)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.SelecioneResposta)
                 </th>
                 <th></th>
             </tr>
@@ -143,31 +116,22 @@
                     @Html.DisplayFor(modelItem => item.Id)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ExameId)
+                    @Html.DisplayFor(modelItem => item.Titulo)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Pergunta)
+                    @Html.DisplayFor(modelItem => item.Descricao)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Responder)
+                    @Html.DisplayFor(modelItem => item.DataInicio)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Opcao1)
+                    @Html.DisplayFor(modelItem => item.Hora)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Opcao2)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Opcao3)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Opcao4)
+                    @Html.DisplayFor(modelItem => item.GroupsId)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.ContaTotal)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SelecioneResposta)
                 </td>
                 <td>
                     @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
